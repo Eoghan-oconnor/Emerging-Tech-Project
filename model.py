@@ -24,8 +24,18 @@ import constants
 
 # We have to reshape the MNIST dataset with Keras, we will convert it from a 3d
 # Array to a 4d NumPy array
+# Making sure train_imgs and test_imgs are floats, so we can use decimal points
 train_imgs = train_imgs.reshape(train_imgs.shape[0], constants.img_width,
                                 constants.img_height, 1)
 test_imgs = test_imgs.reshape(test_imgs.shape[0], constants.img_width,
                               constants.img_height, 1)
 input_shape = (constants.img_width, constants.img_height, 1)
+train_imgs = train_imgs.astype('float32')
+test_imgs = train_imgs.astype('float32')
+
+# Data is normalized when being used in a nerual network t obtain a mean close
+# to 0 Normalizing the data generally speeds up learning and
+# leads to faster convergence. Normalizing the RGB code by dividing it by the
+# max RGB value(255)
+train_imgs /= 255
+test_imgs /= 255
