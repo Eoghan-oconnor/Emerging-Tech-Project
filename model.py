@@ -22,5 +22,10 @@ import constants
 # test_imgs and test_label.
 (train_imgs, train_labels), (test_imgs, test_label) = mnist.load_data()
 
-
-
+# We have to reshape the MNIST dataset with Keras, we will convert it from a 3d
+# Array to a 4d NumPy array
+train_imgs = train_imgs.reshape(train_imgs.shape[0], constants.img_width,
+                                constants.img_height, 1)
+test_imgs = test_imgs.reshape(test_imgs.shape[0], constants.img_width,
+                              constants.img_height, 1)
+input_shape = (constants.img_width, constants.img_height, 1)
