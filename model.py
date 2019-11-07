@@ -14,6 +14,17 @@ import keras as kr
 from keras.datasets import mnist
 # Importing the constants.py
 import constants
+# Importing from keras Dense which implemnets the operation, Flatten is an
+# operation preformed on a tensor thta treshapes the tensor to have a
+# shape that is equal to the number of elements contained in tensor.
+# Conv2D converts the image into pixels and takes an n-sized window
+# those features are then condensed into a feature map and the
+# window slides
+# MaxPooling2D is used for spatial data
+# Dropout is a feature that stops certain neurals from training in order to
+# prevent an overfitting
+from keras.layers import Desne, Flatten, Conv2D, MaxPooling2D, Dropout
+
 
 # This downloads the MNIST dataset from the Keras API. The dataset has 60,000
 # images and associated labels used for training and 10,000 testing images
@@ -39,3 +50,7 @@ test_imgs = train_imgs.astype('float32')
 # max RGB value(255)
 train_imgs /= 255
 test_imgs /= 255
+
+# Creating a model and adding layers
+# Sequential allows you to create a nerual network layer by layer
+model = Sequential()
