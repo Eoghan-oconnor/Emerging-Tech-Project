@@ -12,6 +12,7 @@ import keras as kr
 # commonly used for training various image processing systems.
 # This imports The MNIST dirctly from the from the keras API
 from keras.datasets import mnist
+from keras.models import Sequential
 # Importing the constants.py
 import constants
 # Importing from keras Dense which implemnets the operation, Flatten is an
@@ -53,6 +54,15 @@ test_imgs = train_imgs.astype('float32')
 train_imgs /= 255
 test_imgs /= 255
 
+train_labels = kr.utils.to_categorical(train_labels, constants.no_of_numbers)
+test_label = kr.utils.to_categorical(test_label, constants.no_of_numbers)
+
 # Creating a model and adding layers
 # Sequential allows you to create a nerual network layer by layer
 model = Sequential()
+
+model.add(Conv2D(32, kernal_size=(3, 3), activation='relu',
+                 input_shape=input_shape))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.compile(loss=kr.losses.categorical_crossentropy,
+              optimizer=kr.optimizer.Adadelta(), metrics=['accuracy'])
