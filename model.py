@@ -23,7 +23,9 @@ import constants
 # MaxPooling2D is used for spatial data
 # Dropout is a feature that stops certain neurals from training in order to
 # prevent an overfitting
-from keras.layers import Desne, Flatten, Conv2D, MaxPooling2D, Dropout
+from keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Dropout
+
+from keras.models import load_model
 
 
 # This downloads the MNIST dataset from the Keras API. The dataset has 60,000
