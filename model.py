@@ -27,7 +27,6 @@ import constants
 from keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Dropout
 
 from keras.models import load_model
-import gzip
 
 
 # This downloads the MNIST dataset from the Keras API. The dataset has 60,000
@@ -37,18 +36,26 @@ import gzip
 # test_imgs and test_labels.
 (train_imgs, train_labels), (test_imgs, test_labels) = mnist.load_data()
 
+# Debug
+print(train_imgs.shape[0])
+print(train_labels.shape[0])
+
+print(test_imgs.shape[0])
+print(test_labels.shape[0])
+
+
+img_height, img_width = 28, 28
+
 # We have to reshape the MNIST dataset with Keras, we will convert it from a 3d
 # Array to a 4d NumPy array
 # Making sure train_imgs and test_imgs are floats, so we can use decimal points
-train_imgs = train_imgs.reshape(train_imgs.shape[0], 1, constants.img_width,
-                                constants.img_height)
-test_imgs = test_imgs.reshape(test_imgs.shape[0], 1, constants.img_width,
-                              constants.img_height)
-input_shape = (1, constants.img_width, constants.img_height)
+train_imgs = train_imgs.reshape(train_imgs.shape[0], img_width,
+                                img_height, 1)
+test_imgs = test_imgs.reshape(test_imgs.shape[0], img_width,
+                              img_height, 1)
+input_shape = (img_width, img_height, 1)
 train_imgs = train_imgs.astype('float32')
-test_imgs = train_imgs.astype('float32')
-
-
+test_imgs = test_imgs.astype('float32')
 
 # Data is normalized when being used in a nerual network to obtain a mean close
 # to 0 Normalizing the data generally speeds up learning and
@@ -63,10 +70,8 @@ train_labels = kr.utils.to_categorical(train_labels, num_classes)
 test_labels = kr.utils.to_categorical(test_labels, num_classes)
 train_labels[0]
 
-print(train_imgs.shape)
-print(train_labels.shape)
-print(test_imgs.shape)
-print(test_labels)
+print(test_imgs.shape[0])
+print(test_labels.shape[0])
 
 
 # Creating a model and adding layers
@@ -102,6 +107,7 @@ model.fit(train_imgs, train_labels,
           verbose=1,
           validation_data=(test_imgs, test_labels)
           )
+model.save_weights("model.h5")
 model.save("model.h5")
 
 plt.imshow(test_imgs[3333].reshape(28, 28), cmap="gray")
@@ -117,8 +123,8 @@ except IndexError:
                           batch_size=constants.batch_size,
                           epochs=constants.num_epoch,
                           verbose=1,
-                          validation_data=(test_imgs, test_labels)
-                          )
+                          validation_data=(test_imgs, test_labels))
+    model.save_weights("model.h5")
     model.save("model.h5")
     print("Model Saved.")
 
