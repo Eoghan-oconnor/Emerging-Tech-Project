@@ -50,25 +50,26 @@ def image():
     print(prediction)
     return{"prediction": str(prediction)}
     
-    def load_model():
-        jsonModel = open('model.json', 'r')
-        loadModel = jsonModel.read()
-        jsonModel.close()
-        loadedModel = tf.keras.models.model_from_json(loadModel)
-        
-        loadedModel.load_weights('model.h5')
-        print('Loaded')
-        return loadedModel
+def load_model():
+    jsonModel = open('model.json', 'r')
+    loadModel = jsonModel.read()
+    jsonModel.close()
+    loadedModel = tf.keras.models.model_from_json(loadModel)
+    
+    loadedModel.load_weights('model.h5')
+    print('Loaded')
+    return loadedModel
 
-    def predict(model, image_array):
-        prediction_array = model.predict(image_array)
-        prediction = np.argmax(prediction_array)
-        return prediction
+def predict(model, image_array):
+    prediction_array = model.predict(image_array)
+    prediction = np.argmax(prediction_array)
+    return prediction
 
-    def reshape():
-        # Adapted from: https://dev.to/preslavrachev/python-resizing-and-fitting-an-image-to-an-exact-size-13ic
-        ogImage = Image.open('image.png').convert("L")
-        ogImage = ImageOps.fit(ogImage, 28, Image.ANTIALIAS)
+def reshape():
+    # Adapted from: https://dev.to/preslavrachev/python-resizing-and-fitting-an-image-to-an-exact-size-13ic
+    ogImage = Image.open('image.png').convert("L")
+    size = 28, 28
+    ogImage = ImageOps.fit(ogImage, size, Image.ANTIALIAS)
 
-        img_array = np.array(ogImage).reshape(1, 28, 28, 1)
-        return img_array
+    img_array = np.array(ogImage).reshape(1, 28, 28, 1)
+    return img_array
