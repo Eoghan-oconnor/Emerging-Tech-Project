@@ -89,22 +89,22 @@ function clearTheCanvas(){
 }
 
 // button controller and data transfer for image.
-$("#submitButton").click(function (e){
+$("#submitButton").click(function (e)
+{
     console.log("submit")
 
     // prevent the form from submitting
     e.preventDefault();
 
+    var Sendingdata = {"imageData": JSON.stringify(canvas.toDataURL())};
+    console.log(Sendingdata);
 
-    var data = {"imageData": JSON.stringify(canvas.toDataURL())};
-    console.log(data);
-
-    $.post("/image", data, function(data){
+    $.post("/image", Sendingdata, function(data){
         console.log(data);
 
          $("#predicted").text(data["predicted"]);
-       });
-     });
+    });
+});
 
 
 
