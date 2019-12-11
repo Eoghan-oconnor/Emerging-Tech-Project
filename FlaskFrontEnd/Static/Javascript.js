@@ -77,14 +77,35 @@ function renderCanvas() {
   renderCanvas();
 })();
 
+// Button controller
 $("#clearButton").click(function(e) {
     clearTheCanvas();
 });
 
-function clearTheCanvas()[
-    ctx.clearRect(0,0,150,200);
+// Clear the canvas
+function clearTheCanvas(){
+    ctx.clearRect(0,0,150,200)
     document.getElementById("canvas").style.display = "none"
-]
+}
+
+// button controller and data transfer for image.
+$("#submitButton").click(function (e){
+    console.log("submit")
+
+    // prevent the form from submitting
+    e.preventDefault();
+
+
+    var data = {"imageData": JSON.stringify(canvas.toDataURL())};
+    console.log(data);
+
+    $.post("/image", data, function(data){
+        console.log(data);
+
+         $("#predicted").text(data["predicted"]);
+       });
+     });
+
 
 
 

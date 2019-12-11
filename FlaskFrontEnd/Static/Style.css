@@ -1,3 +1,4 @@
-h1  {
-    position: centre
+.content {
+    max-width: 500px;
+    margin: auto;
 }

@@ -27,6 +27,9 @@ import constants
 from keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Dropout
 
 from keras.models import load_model
+# https://machinelearningmastery.com/save-load-keras-deep-learning-models/
+from keras.models import model_from_json
+
 
 
 # This downloads the MNIST dataset from the Keras API. The dataset has 60,000
@@ -107,6 +110,9 @@ model.fit(train_imgs, train_labels,
           verbose=1,
           validation_data=(test_imgs, test_labels)
           )
+model_json = model.to_json()
+with open("model.json", "w") as json_file:
+    json_file.write(model_json)
 model.save_weights("model.h5")
 model.save("model.h5")
 
@@ -116,6 +122,13 @@ plt.show()
 try:
     print("Model loaded")
     model = load_model("model.h5")
+
+    # Adding json version for use in flask server
+    json_file = open('model.json', 'r')
+    loaded_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_json)
+
 except IndexError:
     print("Error opening file, no model Present")
     print("Creating Model")
@@ -124,6 +137,7 @@ except IndexError:
                           epochs=constants.num_epoch,
                           verbose=1,
                           validation_data=(test_imgs, test_labels))
+   
     model.save_weights("model.h5")
     model.save("model.h5")
     print("Model Saved.")
