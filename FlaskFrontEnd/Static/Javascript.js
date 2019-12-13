@@ -102,7 +102,7 @@ $("#submitButton").click(function (e)
     $.post("/image", Sendingdata, function(data){
         console.log(data);
 
-         $("#predicted").text(data["predicted"]);
+         $("#prediction").text(data["prediction"]);
     });
 });
 

@@ -69,7 +69,7 @@ def reshape():
     # Adapted from: https://dev.to/preslavrachev/python-resizing-and-fitting-an-image-to-an-exact-size-13ic
     ogImage = Image.open('image.png').convert("L")
     size = 28, 28
-    ogImage = ImageOps.fit(ogImage, size, Image.ANTIALIAS)
+    ogImage = ImageOps.fit(ogImage, size    , Image.ANTIALIAS)
 
     img_array = np.array(ogImage).reshape(1, 28, 28, 1)
     return img_array
