@@ -37,6 +37,7 @@ def image():
     print(userImage)
 
     decodedImage = base64.b64decode(userImage[22:])
+    
     with open ("image.png", "wb") as f:
         f.write(decodedImage)
 
@@ -49,27 +50,33 @@ def image():
   
     print(prediction)
     return{"prediction": str(prediction)}
-    
+
+
+# Load model loads the JSON File that contains the model and returns the model.
 def load_model():
     jsonModel = open('model.json', 'r')
     loadModel = jsonModel.read()
     jsonModel.close()
     loadedModel = tf.keras.models.model_from_json(loadModel)
-    
     loadedModel.load_weights('model.h5')
     print('Loaded')
     return loadedModel
 
+
+# Predict method takes in the image array and the model and uses the argmax python function
+# to determine the number.
 def predict(model, image_array):
     prediction_array = model.predict(image_array)
     prediction = np.argmax(prediction_array)
     return prediction
 
+
+# Reshape, Adapted from the below link, resizes the image to 28 * 28, as that is what the mnist dataset images are
 def reshape():
     # Adapted from: https://dev.to/preslavrachev/python-resizing-and-fitting-an-image-to-an-exact-size-13ic
     ogImage = Image.open('image.png').convert("L")
     size = 28, 28
-    ogImage = ImageOps.fit(ogImage, size    , Image.ANTIALIAS)
+    ogImage = ImageOps.fit(ogImage, size, Image.ANTIALIAS)
 
     img_array = np.array(ogImage).reshape(1, 28, 28, 1)
     return img_array

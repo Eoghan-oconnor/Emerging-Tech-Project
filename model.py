@@ -40,13 +40,13 @@ from keras.models import model_from_json
 (train_imgs, train_labels), (test_imgs, test_labels) = mnist.load_data()
 
 # Debug
-print(train_imgs.shape[0])
-print(train_labels.shape[0])
+# print(train_imgs.shape[0])
+# print(train_labels.shape[0])
 
-print(test_imgs.shape[0])
-print(test_labels.shape[0])
+# print(test_imgs.shape[0])
+# print(test_labels.shape[0])
 
-
+# Setting image width and height to 28.
 img_height, img_width = 28, 28
 
 # We have to reshape the MNIST dataset with Keras, we will convert it from a 3d
@@ -67,14 +67,16 @@ test_imgs = test_imgs.astype('float32')
 train_imgs /= 255
 test_imgs /= 255
 
+# There are ten numbers (0-9) so the Output layer our NN only need ten layers. 
 num_classes = 10
-
+# Assigns labels to associated images 
 train_labels = kr.utils.to_categorical(train_labels, num_classes)
 test_labels = kr.utils.to_categorical(test_labels, num_classes)
 train_labels[0]
 
-print(test_imgs.shape[0])
-print(test_labels.shape[0])
+# Debug
+# print(test_imgs.shape[0])
+# print(test_labels.shape[0])
 
 
 # Creating a model and adding layers
@@ -100,8 +102,9 @@ model.compile(loss=kr.losses.categorical_crossentropy,
 # program.The code that follows the except statement is the program's response
 # to any exceptions in the preceding try clause.
 
-print(test_imgs.shape)
-print(test_labels.shape)
+# Debug
+# print(test_imgs.shape)
+# print(test_labels.shape)
 
 
 model.fit(train_imgs, train_labels,
@@ -130,7 +133,7 @@ try:
     loaded_model = model_from_json(loaded_json)
 
 except IndexError:
-    print("Error opening file, no model Present")
+    print("N0 model found")
     print("Creating Model")
     model_log = model.fit(train_imgs, train_labels,
                           batch_size=constants.batch_size,
