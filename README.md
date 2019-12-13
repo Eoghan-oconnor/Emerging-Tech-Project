@@ -1,2 +1,2 @@
 # Emerging-Tech-Project
-This Repo will contain my Emerging Techonoolgies
+# Hand Written number Guesser using the MNIST dataset
